@@ -29,4 +29,15 @@ public class GitHubService(HttpClient httpClient)
         var parts = uri.AbsolutePath.Trim('/').Split('/');
         return (parts[0], parts[1]);
     }
+
+    // Gets the content of a file in the repo using GitHub API (base64 encoded)
+    public async Task<string> GetFileContentAsync(string owner, string repo, string path)
+    {
+        var url = $"https://api.github.com/repos/{owner}/{repo}/contents/{path}";
+        var response = await httpClient.GetFromJsonAsync<JsonElement>(url);
+
+        var base64 = response.GetProperty("content").GetString()!.Replace("\n", "");
+
+        return System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+    }
 }
