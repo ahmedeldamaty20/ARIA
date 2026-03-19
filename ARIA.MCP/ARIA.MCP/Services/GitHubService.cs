@@ -21,4 +21,12 @@ public class GitHubService(HttpClient httpClient)
             .Select(item => item.GetProperty("path").GetString()!)
             .ToList();
     }
+
+    // Helper method to parse GitHub repo URL and extract owner and repo name
+    public static (string owner, string repo) ParseUrl(string url)
+    {
+        var uri = new Uri(url.StartsWith("http") ? url : "https://" + url);
+        var parts = uri.AbsolutePath.Trim('/').Split('/');
+        return (parts[0], parts[1]);
+    }
 }
