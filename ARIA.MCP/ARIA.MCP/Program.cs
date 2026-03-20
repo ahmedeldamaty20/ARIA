@@ -22,6 +22,15 @@ builder.Services.AddHttpClient<GitHubService>(client =>
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 });
 
+builder.Services.AddHttpClient<EmbeddingService>(client =>
+{
+    var apiKey = builder.Configuration["OpenAI:ApiKey"]
+        ?? throw new InvalidOperationException("OpenAI:ApiKey is required");
+
+    client.DefaultRequestHeaders.Authorization =
+        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
+});
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
