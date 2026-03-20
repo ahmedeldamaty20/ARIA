@@ -11,6 +11,8 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: true)
     .AddEnvironmentVariables();
 
+builder.Services.AddOpenApi();
+
 builder.Services.AddHttpClient<GitHubService>(client =>
 {
     client.DefaultRequestHeaders.Add("User-Agent", "codebase-mcp/1.0");
@@ -31,7 +33,7 @@ builder.Services.AddHttpClient<EmbeddingService>(client =>
         new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
 });
 
-builder.Services.AddOpenApi();
+builder.Services.AddSingleton<PineconeService>();
 
 var app = builder.Build();
 
