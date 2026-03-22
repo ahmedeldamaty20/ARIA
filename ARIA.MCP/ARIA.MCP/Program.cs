@@ -11,6 +11,9 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: true)
     .AddEnvironmentVariables();
 
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(LogLevel.None); 
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddHttpClient<GitHubService>(client =>
