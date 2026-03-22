@@ -40,4 +40,31 @@ public class GitHubService(HttpClient httpClient)
 
         return System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(base64));
     }
+
+    // It tries to find common dependency files and returns their content in a dictionary (package.json → content, requirements.txt → content, *.csproj → content)
+    public async Task<Dictionary<string, string>> GetDependenciesAsync(string owner, string repo)
+    {
+        var deps = new Dictionary<string, string>();
+        var candidates = new[] { "package.json", "requirements.txt" };
+
+        foreach (var file in candidates)
+        {
+            try
+            {
+                var content = await GetFileContentAsync(owner, repo, file);
+                deps[file] = content;
+            }
+            catch { /* The file might not exist, so we ignore errors */ }
+        }
+
+        // For .csproj files, we need to find them first and then get their content
+        var allFiles = await GetRepoFilesAsync(owner, repo);
+        foreach (var csproj in allFiles.Where(f => f.EndsWith(".csproj")))
+        {
+            var content = await GetFileContentAsync(owner, repo, csproj);
+            deps[csproj] = content;
+        }
+
+        return deps;
+    }
 }
