@@ -1,0 +1,6 @@
+@ARIA.MCP_HostAddress = http://localhost:5006
+
+GET {{ARIA.MCP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
