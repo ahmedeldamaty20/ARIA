@@ -33,7 +33,13 @@ builder.Services.AddHttpClient<EmbeddingService>(client =>
         new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
 });
 
+builder.Services.AddSingleton<ChunkingService>();
 builder.Services.AddSingleton<PineconeService>();
+
+builder.Services
+    .AddMcpServer()
+    .WithStdioServerTransport()
+    .WithToolsFromAssembly();
 
 var app = builder.Build();
 
