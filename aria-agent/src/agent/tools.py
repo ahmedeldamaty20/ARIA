@@ -1,4 +1,3 @@
-import asyncio
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_core.tools import BaseTool
 from src.config import settings
@@ -30,7 +29,7 @@ async def load_mcp_tools() -> list[BaseTool]:
     for tool in tools:
         print(f"Loaded MCP tool: {tool.name} - {tool.description}")
 
-    # verify إن الـ tools اتحملت صح
+    # verify that all expected tools are present
     tool_names = [t.name for t in tools]
     expected = [
         "github_fetch_repo",
@@ -45,6 +44,3 @@ async def load_mcp_tools() -> list[BaseTool]:
         raise RuntimeError(f"MCP tools missing: {missing}")
 
     return tools
-
-if __name__ == "__main__":
-    asyncio.run(load_mcp_tools())
