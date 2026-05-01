@@ -1,5 +1,5 @@
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, ToolMessage
+from langchain_core.messages import SystemMessage
 from langgraph.prebuilt import ToolNode
 
 from src.agent.state import AgentState

@@ -1,3 +1,5 @@
+import os
+
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_core.tools import BaseTool
 from src.config import settings
@@ -16,18 +18,25 @@ async def load_mcp_tools() -> list[BaseTool]:
         {
             "codebase": {
                 "command": settings.mcp_server_command,
-                "args": settings.mcp_server_args.split(),
+                "args": settings.mcp_server_args,
                 "transport": "stdio",
             }
         }
     )
 
-    print(f"Starting MCP server with command: {settings.mcp_server_command} {' '.join(settings.mcp_server_args.split())}")
+    # Debug: ensure important env vars are present for the MCP subprocess
+    print(f"Starting MCP server with command: {settings.mcp_server_command} {' '.join(settings.mcp_server_args)}")
+    has_token = "GITHUB_TOKEN" in os.environ
+    print("GITHUB_TOKEN present in Python process:", has_token)
+    if has_token:
+        t = os.environ.get("GITHUB_TOKEN") or ""
+        print("GITHUB_TOKEN prefix:", (t[:4] + "...") if len(t) >= 4 else t)
 
     tools = await client.get_tools()
 
+    print(f"\n✅ Loaded {len(tools)} tools:")
     for tool in tools:
-        print(f"Loaded MCP tool: {tool.name} - {tool.description}")
+        print(f"  - {tool.name}: {tool.description[:60]}...")        
 
     # verify that all expected tools are present
     tool_names = [t.name for t in tools]
