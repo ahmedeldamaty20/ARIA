@@ -4,7 +4,6 @@ from src.agent.state import AgentState
 from src.agent.nodes import make_agent_node, make_tools_node, should_continue
 from src.agent.tools import load_mcp_tools
 
-
 async def build_graph():
     """
     Builds the LangGraph workflow:
@@ -15,6 +14,12 @@ async def build_graph():
     - Agent thinks and decides whether to use a tool or not
     - If a tool is used → return to the agent with the result
     - If it responds directly → END
+
+    CRITICAL:
+    - Reuse previous tool outputs when enough context exists
+    - Avoid redundant tool calls
+    
+    Be concise unless user asks for detail
     """
 
     # 1. Load the tools from the MCP server

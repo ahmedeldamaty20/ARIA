@@ -1,9 +1,9 @@
-﻿using ARIA.MCP.Services;
+﻿using Services;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 using System.Text;
 
-namespace ARIA.MCP.Tools;
+namespace Tools;
 
 [McpServerToolType]
 public class SearchCodeTool(EmbeddingService embedder, PineconeService pinecone)

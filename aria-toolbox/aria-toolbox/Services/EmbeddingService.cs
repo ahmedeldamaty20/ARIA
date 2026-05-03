@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace ARIA.MCP.Services;
+namespace Services;
 
 // It's responsible for calling OpenAI API to get embeddings for code chunks and dependency files. It supports both single embedding and batch embedding (which is faster and more cost-effective).
 public class EmbeddingService(HttpClient httpClient)

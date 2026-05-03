@@ -1,8 +1,8 @@
-﻿using ARIA.MCP.Services;
+﻿using Services;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 
-namespace ARIA.MCP.Tools;
+namespace Tools;
 
 [McpServerToolType]
 public class FetchFileTool(GitHubService github)

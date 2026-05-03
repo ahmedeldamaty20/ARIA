@@ -1,7 +1,7 @@
-﻿using ARIA.MCP.Models;
+﻿using Models;
 using System.Text.RegularExpressions;
 
-namespace ARIA.MCP.Services;
+namespace Services;
 
 // It's responsible for splitting code files into smaller chunks (functions, classes, or whole file) to be indexed and searched later.
 public class ChunkingService

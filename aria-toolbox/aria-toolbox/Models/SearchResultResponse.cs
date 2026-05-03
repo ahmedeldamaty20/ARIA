@@ -1,4 +1,4 @@
-﻿namespace ARIA.MCP.Models;
+﻿namespace Models;
 public record SearchResultResponse(
     string FilePath,
     string ChunkType,
