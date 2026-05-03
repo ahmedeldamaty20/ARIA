@@ -14,12 +14,15 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.Logging.ClearProviders();
-builder.Logging.AddConsole(options =>
+
+builder.Logging.AddFilter("Microsoft", LogLevel.Warning);
+builder.Logging.AddFilter("System", LogLevel.Warning);
+
+builder.Host.UseDefaultServiceProvider(options =>
 {
-    // Route console logs to stderr so MCP stdio JSON transport on stdout remains clean.
-    options.LogToStandardErrorThreshold = LogLevel.Trace;
+    options.ValidateScopes = false;
+    options.ValidateOnBuild = false;
 });
-builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 builder.Services.AddOpenApi();
 
