@@ -10,8 +10,14 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="allow")
 
     OPENAI_API_KEY: str
+    # mcp_server_command: str = "dotnet"
+    # mcp_server_args: list[str] = ["run", "--project", r"D:\Projects\ARIA\aria-toolbox\aria-toolbox\aria-toolbox.csproj", "--no-build"]
+
     mcp_server_command: str = "dotnet"
-    mcp_server_args: list[str] = ["run", "--project", r"E:\Projects\ARIA\ARIA.MCP\ARIA.MCP\ARIA.MCP.csproj", "--no-build"]
+
+    mcp_server_args: list[str] = [
+        r"D:\Projects\ARIA\aria-toolbox\out\aria-toolbox.dll"
+    ]
     
     model_name: str = "gpt-4o-mini"
 
