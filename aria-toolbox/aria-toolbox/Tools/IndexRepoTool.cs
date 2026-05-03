@@ -1,9 +1,9 @@
-﻿using ARIA.MCP.Models;
-using ARIA.MCP.Services;
+﻿using Models;
+using Services;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 
-namespace ARIA.MCP.Tools;
+namespace Tools;
 
 [McpServerToolType]
 public class IndexRepoTool(GitHubService github, ChunkingService chunker, EmbeddingService embedder, PineconeService pinecone)
@@ -24,6 +24,8 @@ public class IndexRepoTool(GitHubService github, ChunkingService chunker, Embedd
 
             if (forceReindex)
                 await pinecone.DeleteRepoChunksAsync(repoUrl);
+
+            Console.Error.WriteLine($"DEBUG: begin");
 
             // 1. Get the list of files
             var files = await github.GetRepoFilesAsync(owner, repo);
@@ -50,12 +52,17 @@ public class IndexRepoTool(GitHubService github, ChunkingService chunker, Embedd
                 }
             }
 
+            Console.Error.WriteLine($"DEBUG: Processed {processedFiles} files");
+
             // 3. Generate embeddings (batch)
             var texts = allChunks.Select(c => $"{c.FilePath}\n{c.Name}\n{c.Content}").ToList();
             var embeddings = await embedder.EmbedBatchAsync(texts);
 
             // 4. Upload to Pinecone
             await pinecone.UpsertChunksAsync(allChunks, embeddings);
+
+            Console.Error.WriteLine($"DEBUG: Uploaded {allChunks.Count} chunks to Pinecone");
+
 
             return $"""
                 Indexing complete!

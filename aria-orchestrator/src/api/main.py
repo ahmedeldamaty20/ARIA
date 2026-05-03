@@ -2,7 +2,6 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from langchain_core.messages import HumanMessage
 from pydantic import BaseModel
-
 from src.agent.graph import build_graph
 from src.agent.state import AgentState
 
@@ -14,9 +13,8 @@ async def lifespan(app: FastAPI):
     yield
     # cleanup if needed (e.g., close MCP client subprocesses)
 
-
 app = FastAPI(
-    title="Codebase Explorer Agent",
+    title="ARIA Agent API",
     lifespan=lifespan,
 )
 
@@ -31,7 +29,6 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     is_indexed: bool   # Return to frontend to update indexing status after first question
-
 
 #  Endpoints
 @app.post("/chat", response_model=ChatResponse)

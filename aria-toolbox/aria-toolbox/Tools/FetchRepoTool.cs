@@ -1,9 +1,10 @@
-﻿using ARIA.MCP.Services;
+﻿using Services;
+using ModelContextProtocol.Protocol;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 using System.Text;
 
-namespace ARIA.MCP.Tools;
+namespace Tools;
 
 [McpServerToolType]
 public class FetchRepoTool(GitHubService github)
@@ -35,11 +36,15 @@ public class FetchRepoTool(GitHubService github)
                     sb.AppendLine($"   └── {Path.GetFileName(file)}");
             }
 
+            Console.Error.WriteLine($"DEBUG: {sb.ToString()}");
+
             return sb.ToString();
         }
         catch (Exception ex)
         {
-            return $"Error fetching repository: {ex.Message}. Make sure the URL is correct and the repository is public.";
+            // Return more detailed information for debugging. This is safe locally;
+            // avoid exposing sensitive data in production logs.
+            return $"Error fetching repository: {ex.Message}. Exception: {ex.ToString()}. Make sure the URL is correct and the repository is public.";
         }
     }
 }

@@ -1,4 +1,6 @@
-using ARIA.MCP.Services;
+using Services;
+using System.Net.Http.Headers;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,12 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 builder.Logging.ClearProviders();
-builder.Logging.SetMinimumLevel(LogLevel.None); 
+builder.Logging.AddConsole(options =>
+{
+    // Route console logs to stderr so MCP stdio JSON transport on stdout remains clean.
+    options.LogToStandardErrorThreshold = LogLevel.Trace;
+});
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 builder.Services.AddOpenApi();
 
@@ -22,9 +29,12 @@ builder.Services.AddHttpClient<GitHubService>(client =>
     client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
 
     var token = builder.Configuration["GitHub:Token"];
+    // Fall back to common env var name if the configuration key wasn't set
+    if (string.IsNullOrEmpty(token))
+        token = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+
     if (!string.IsNullOrEmpty(token))
-        client.DefaultRequestHeaders.Authorization =
-            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 });
 
 builder.Services.AddHttpClient<EmbeddingService>(client =>

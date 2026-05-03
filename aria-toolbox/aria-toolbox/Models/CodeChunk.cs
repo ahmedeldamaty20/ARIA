@@ -1,4 +1,4 @@
-﻿namespace ARIA.MCP.Models;
+﻿namespace Models;
 public record CodeChunk(
     string Id,
     string RepoUrl,

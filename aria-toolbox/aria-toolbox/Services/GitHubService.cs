@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace ARIA.MCP.Services;
+namespace Services;
 
 public class GitHubService(HttpClient httpClient)
 {

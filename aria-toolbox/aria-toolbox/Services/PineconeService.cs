@@ -1,7 +1,7 @@
-﻿using ARIA.MCP.Models;
+﻿using Models;
 using Pinecone;
 
-namespace ARIA.MCP.Services;
+namespace Services;
 
 // It's responsible for interacting with Pinecone vector database to store and search code chunks based on their embeddings. It has methods for upserting chunks, searching for similar chunks given a query embedding, and deleting all chunks related to a specific repo (when the repo is updated). 
 public class PineconeService(IConfiguration config)
