@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Serif, Mona_Sans } from "next/font/google";
+import { IBM_Plex_Serif, Mona_Sans, Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const ibmPlexSerif = IBM_Plex_Serif({
   variable: "--font-ibm-plex-serif",
@@ -29,11 +33,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ibmPlexSerif.variable} ${monaSans.variable} font-sans h-full antialiased`}
+      className={cn("h-full", "antialiased", ibmPlexSerif.variable, monaSans.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">
         <Navbar />
         {children}
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

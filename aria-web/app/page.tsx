@@ -1,14 +1,35 @@
-import React from 'react'
+'use client'
+
+import RepoInput from '@/components/RepoInput'
+import { useChat } from '@/hooks/useChat';
+import { ToastState } from '@/types';
+import { title } from 'process';
+import { toast } from 'sonner'
 
 export default function Home() {
-  return (
-    <div className="flex flex-col h-screen bg-primary">
 
-      {/* Navbar */}
-      <nav className="flex items-center gap-2 px-4 py-3 border-b border-border shrink-0 bg-primary">
-        <div className="w-2 h-2 rounded-full" />
-        <span className="text-xl font-bold text-on-primary">ARIA - AI Repository Inspector & Assistant</span>
-      </nav>
+  const {
+    repoUrl,
+    setRepoUrl,
+    status,
+    indexRepo,
+  } = useChat();
+
+  const showToast = (props: ToastState) => {
+    if (props.variant === 'success') {
+      toast.success(props.title, {
+        description: props.description
+      });
+    } else {
+      toast.error(props.title, {
+        description: props.description
+      });
+    }
+  }
+
+  return (
+    <div className="wrapper py-20 home-shell">
+      <RepoInput repoUrl={repoUrl} onChange={setRepoUrl} onIndex={indexRepo} status={status} onToast={showToast} />
     </div>
   )
 }
