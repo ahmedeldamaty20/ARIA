@@ -1,44 +1,51 @@
 @import "tailwindcss";
 
 :root {
-
-  /* Warm Text Colors */
-  --bg-primary: #f8f4e9;
-  --bg-secondary: #fff6e5;
-  --bg-card: #ffffff;
+  /* Primary Backgrounds */
+  --bg-primary: #0f1419;
+  --bg-secondary: #1a1f2e;
+  --bg-card: #1e2330;
   
   /* Text Colors */
-  --text-primary: #212a3b;
-  --text-secondary: #3d485e;
-  --text-muted: #222c37;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b8c2;
+  --text-muted: #7a8194;
 
   /* Base theme colors */ 
-  --background: #f8f4e9;
-  --foreground: #212a3b;
+  --background: #0f1419;
+  --foreground: #ffffff;
 
-  /* Brand accent (warm brown) - for active states and CTAs */
-  --color-brand: #663820;
-  --color-brand-hover: #7a4528;
+  /* AI Brand Accent (Vibrant Blue-Purple) - for active states and CTAs */
+  --color-brand: #0ea5e9;
+  --color-brand-hover: #06b6d4;
 
   /* Borders */
-  --border-subtle: rgba(33, 42, 59, 0.12);
-  --border-medium: rgba(33, 42, 59, 0.2);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.12);
 
   /* Semantic Colors */
-  --success: #7c9a82;
-  --warning: #d4a853;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
 
-  /* Soft Shadows */
-  --shadow-soft-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-soft-md: 0 2px 4px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.08);
-  --shadow-soft-lg: 0 4px 12px rgba(0, 0, 0, 0.08), 0 16px 32px rgba(0, 0, 0, 0.12);
-  --shadow-book: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
+  /* Modern Shadows for Depth */
+  --shadow-soft-sm: 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-soft-md: 0 2px 4px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.18);
+  --shadow-soft-lg: 0 4px 12px rgba(0, 0, 0, 0.15), 0 16px 32px rgba(0, 0, 0, 0.25);
+  --shadow-book: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
 
-  /* Warm Accent */
-  --accent-warm: #212a3b;
-  --accent-warm-hover: #3d485e;
-  --accent-light: #fff6e5;
+  /* AI Chat Accent Colors */
+  --accent-primary: #0ea5e9;
+  --accent-primary-hover: #06b6d4;
+  --accent-secondary: #8b5cf6;
+  --accent-light: #1e3a8a;
+
+  /* Message Bubbles */
+  --message-user-bg: #0ea5e9;
+  --message-user-text: #ffffff;
+  --message-ai-bg: #1e2330;
+  --message-ai-text: #ffffff;
 
   /* Layout dimensions */
   --navbar-height: 74px;
@@ -63,16 +70,16 @@
   }
   /* Navbar Components */
   .logo-text {
-    @apply font-semibold text-xl hidden sm:block text-black;
+    @apply font-semibold text-xl hidden sm:block text-white;
   }
   .nav-link-base {
-    @apply cursor-pointer text-base font-medium leading-6 transition-all;
+    @apply cursor-pointer text-base font-medium leading-6 transition-all text-gray-300 hover:text-white;
   }
   .nav-link-active {
     @apply text-(--color-brand) border-b-2 border-(--color-brand) pb-0.5;
   }
   .nav-user-link {
-    @apply flex items-center gap-1 hover:opacity-70 transition-opacity;
+    @apply flex items-center gap-1 hover:opacity-80 transition-opacity text-gray-300 hover:text-white;
   }
 }
 
