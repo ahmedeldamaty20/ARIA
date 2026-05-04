@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
-import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
+import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, AlertOctagon, Loader2Icon } from "lucide-react"
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme()
@@ -10,37 +10,45 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme={theme as ToasterProps["theme"]}
-      className="toaster group"
+      className="toaster"
       icons={{
         success: (
-          <CircleCheckIcon className="size-4" />
+          <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br from-green-400/30 to-green-500/20">
+            <CircleCheckIcon className="w-4 h-4 text-green-400" strokeWidth={3} />
+          </div>
         ),
         info: (
-          <InfoIcon className="size-4" />
+          <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br from-cyan-400/30 to-cyan-500/20">
+            <InfoIcon className="w-4 h-4 text-cyan-400" strokeWidth={3} />
+          </div>
         ),
         warning: (
-          <TriangleAlertIcon className="size-4" />
+          <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br from-amber-400/30 to-amber-500/20">
+            <TriangleAlertIcon className="w-4 h-4 text-amber-400" strokeWidth={3} />
+          </div>
         ),
         error: (
-          <OctagonXIcon className="size-4" />
+          <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br from-red-400/30 to-red-500/20">
+            <AlertOctagon className="w-4 h-4 text-red-400" strokeWidth={3} />
+          </div>
         ),
         loading: (
-          <Loader2Icon className="size-4 animate-spin" />
+          <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br from-cyan-400/30 to-cyan-500/20">
+            <Loader2Icon className="w-4 h-4 text-cyan-400 animate-spin" strokeWidth={3} />
+          </div>
         ),
       }}
       style={
         {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
-          "--border-radius": "var(--radius)",
+          "--normal-bg": "var(--toast-bg)",
+          "--normal-text": "var(--toast-text)",
+          "--normal-border": "var(--toast-border)",
+          "--border-radius": "12px",
         } as React.CSSProperties
       }
-      toastOptions={{
-        classNames: {
-          toast: "cn-toast",
-        },
-      }}
+      position="bottom-right"
+      gap={12}
+      richColors
       {...props}
     />
   )

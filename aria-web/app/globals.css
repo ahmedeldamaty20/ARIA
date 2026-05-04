@@ -50,6 +50,24 @@
   --message-ai-bg: #1e2330;
   --message-ai-text: #ffffff;
 
+  /* Toast Notifications */
+  --toast-bg: #1a1f2e;
+  --toast-border: rgba(255, 255, 255, 0.1);
+  --toast-text: #ffffff;
+  --toast-muted: #b3b8c2;
+  --toast-success-bg: rgba(16, 185, 129, 0.1);
+  --toast-success-border: rgba(16, 185, 129, 0.3);
+  --toast-success-text: #10b981;
+  --toast-error-bg: rgba(239, 68, 68, 0.1);
+  --toast-error-border: rgba(239, 68, 68, 0.3);
+  --toast-error-text: #ef4444;
+  --toast-warning-bg: rgba(245, 158, 11, 0.1);
+  --toast-warning-border: rgba(245, 158, 11, 0.3);
+  --toast-warning-text: #f59e0b;
+  --toast-info-bg: rgba(14, 165, 233, 0.1);
+  --toast-info-border: rgba(14, 165, 233, 0.3);
+  --toast-info-text: #0ea5e9;
+
   /* Layout dimensions */
   --navbar-height: 74px;
 }
@@ -74,6 +92,47 @@
       radial-gradient(circle at top left, rgba(34, 211, 238, 0.16), transparent 34%),
       radial-gradient(circle at top right, rgba(59, 130, 246, 0.15), transparent 28%),
       linear-gradient(180deg, #07111f 0%, #090f1a 42%, #05070d 100%);
+  }
+
+  .home-grid-overlay {
+    @apply absolute inset-0 opacity-35;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .home-main {
+    @apply relative z-10 py-10 md:py-14 lg:py-16;
+  }
+
+  .home-layout {
+    @apply mx-auto max-w-6xl grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end;
+  }
+
+  .home-kicker {
+    @apply inline-flex items-center rounded-full border border-cyan-300/20 bg-cyan-400/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.28em] text-cyan-200;
+  }
+
+  .home-title {
+    font-family: var(--font-ibm-plex-serif), serif;
+    @apply max-w-3xl text-4xl leading-tight tracking-[-0.03em] text-white sm:text-5xl lg:text-5xl;
+  }
+
+  .home-copy {
+    @apply max-w-2xl text-base leading-7 text-slate-300 sm:text-lg;
+  }
+
+  .home-pill {
+    @apply rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300;
+  }
+
+  .home-step-card {
+    @apply rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl;
+  }
+
+  .home-panel {
+    @apply mt-8 rounded-4xl border border-white/10 bg-white/5 p-3 shadow-[0_30px_90px_rgba(0,0,0,0.45)] backdrop-blur-2xl;
   }
 
   .repo-shell {
@@ -159,4 +218,161 @@ body {
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   letter-spacing: -0.02em;
+}
+
+/* Toast Styling */
+@layer base {
+  .toaster {
+    @apply fixed bottom-4 right-4 z-100;
+  }
+
+  .toaster.top-0 {
+    @apply top-0 bottom-auto;
+  }
+
+  /* Base Toast */
+  .sonner-toast {
+    @apply pointer-events-auto relative flex w-full max-w-sm items-start gap-3 rounded-xl border px-4 py-3 shadow-xl transition-all duration-200 backdrop-blur-md;
+    background: linear-gradient(135deg, var(--toast-bg) 0%, rgba(26, 31, 46, 0.8) 100%);
+  }
+
+  .sonner-toast .sonner-content {
+    @apply flex flex-col gap-1 flex-1;
+  }
+
+  .sonner-toast .sonner-title {
+    @apply font-semibold text-sm leading-tight;
+  }
+
+  .sonner-toast .sonner-description {
+    @apply text-xs opacity-80 leading-relaxed;
+  }
+
+  /* Success Toast */
+  .sonner-toast.sonner-success {
+    @apply border-(--success-border) bg-linear-to-br from-[rgba(16,185,129,0.15)] via-[rgba(16,185,129,0.08)] to-(--toast-bg);
+  }
+
+  .sonner-toast.sonner-success .sonner-content {
+    @apply text-(--toast-text);
+  }
+
+  .sonner-toast.sonner-success .sonner-title {
+    @apply text-(--toast-text) font-semibold;
+  }
+
+  .sonner-toast.sonner-success .sonner-description {
+    @apply text-(--text-secondary);
+  }
+
+  /* Error Toast */
+  .sonner-toast.sonner-error {
+    @apply border-(--error-border) bg-linear-to-br from-[rgba(239,68,68,0.15)] via-[rgba(239,68,68,0.08)] to-(--toast-bg);
+  }
+
+  .sonner-toast.sonner-error .sonner-content {
+    @apply text-(--toast-text);
+  }
+
+  .sonner-toast.sonner-error .sonner-title {
+    @apply text-(--toast-text) font-semibold;
+  }
+
+  .sonner-toast.sonner-error .sonner-description {
+    @apply text-(--text-secondary);
+  }
+
+  /* Warning Toast */
+  .sonner-toast.sonner-warning {
+    @apply border-(--warning-border) bg-linear-to-br from-[rgba(245,158,11,0.15)] via-[rgba(245,158,11,0.08)] to-(--toast-bg);
+  }
+
+  .sonner-toast.sonner-warning .sonner-content {
+    @apply text-(--toast-text);
+  }
+
+  .sonner-toast.sonner-warning .sonner-title {
+    @apply text-(--toast-text) font-semibold;
+  }
+
+  .sonner-toast.sonner-warning .sonner-description {
+    @apply text-(--text-secondary);
+  }
+
+  /* Info Toast */
+  .sonner-toast.sonner-info {
+    @apply border-(--info-border) bg-linear-to-br from-[rgba(14,165,233,0.15)] via-[rgba(14,165,233,0.08)] to-(--toast-bg);
+  }
+
+  .sonner-toast.sonner-info .sonner-content {
+    @apply text-(--toast-text);
+  }
+
+  .sonner-toast.sonner-info .sonner-title {
+    @apply text-(--toast-text) font-semibold;
+  }
+
+  .sonner-toast.sonner-info .sonner-description {
+    @apply text-(--text-secondary);
+  }
+
+  /* Default Toast */
+  .sonner-toast.sonner-default {
+    @apply border-(--normal-border) bg-linear-to-br from-[rgba(255,255,255,0.05)] via-[rgba(255,255,255,0.02)] to-(--toast-bg);
+  }
+
+  /* Loading Toast */
+  .sonner-toast.sonner-loading {
+    @apply border-(--info-border) bg-linear-to-br from-[rgba(14,165,233,0.15)] via-[rgba(14,165,233,0.08)] to-(--toast-bg);
+  }
+
+  /* Icons Container */
+  .sonner-toast .sonner-icon {
+    @apply shrink-0 mt-0.5;
+  }
+
+  /* Buttons */
+  .sonner-button {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 bg-black/20 hover:bg-black/40 active:bg-black/50;
+  }
+
+  /* Action buttons container */
+  .sonner-toast .sonner-action {
+    @apply shrink-0;
+  }
+
+  .sonner-toast .sonner-cancel {
+    @apply shrink-0;
+  }
+
+  /* Animations */
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .sonner-toast {
+    animation: slideInRight 0.3s ease-out;
+  }
+
+  .sonner-toast.leaving {
+    animation: slideOutRight 0.3s ease-in;
+  }
 }
