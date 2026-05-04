@@ -87,9 +87,11 @@ export function useChat() {
         }),
       });
 
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? `Request failed with status ${res.status}`);
+      }
       const data = await res.json();
-
-      if (!res.ok) throw new Error(data.error);
 
       setIsIndexed(data.is_indexed);
       const assistantMessage: Message = {
@@ -133,8 +135,14 @@ export function useChat() {
             is_indexed: isIndexed,
           }),
         });
+        
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error ?? `Request failed with status ${res.status}`);
+        }
 
         const data = await res.json();
+
         if (!res.ok) throw new Error(data.error);
 
         setIsIndexed(data.is_indexed);

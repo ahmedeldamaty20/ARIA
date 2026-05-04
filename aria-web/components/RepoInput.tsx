@@ -45,14 +45,12 @@ export default function RepoInput({ repoUrl, onChange, onIndex, status, onToast 
 
   async function onIndexClick() {
     if (!isIndexing && repoUrl.trim()) {
-
-      // check if the repo url is valid
-      try {
-        new URL(repoUrl);
-      } catch {
+      // check if the repo url is a valid GitHub repository
+      const githubRepoPattern = /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/?$/;
+      if (!githubRepoPattern.test(repoUrl)) {
         onToast?.({
           title: "Invalid URL",
-          description: "Please enter a valid URL.",
+          description: "Please enter a valid GitHub repository URL.",
           variant: "error",
         });
         return;

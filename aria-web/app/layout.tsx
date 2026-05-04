@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Serif, Mona_Sans, Geist } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Serif, Mona_Sans, Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
@@ -18,7 +18,14 @@ const monaSans = Mona_Sans({
   variable: "--font-mona-sans",
   subsets: ["latin"],
   display: "swap"
-});``
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   title: "ARIA - AI Repository Inspector & Assistant",
@@ -33,7 +40,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", ibmPlexSerif.variable, monaSans.variable, "font-sans", geist.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        ibmPlexSerif.variable,
+        ibmPlexMono.variable,
+        monaSans.variable,
+        "font-sans",
+        geist.variable,
+      )}
     >
       <body className="min-h-full flex flex-col">
         <Navbar />
